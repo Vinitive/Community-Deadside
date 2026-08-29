@@ -237,5 +237,97 @@ nav a.active {
     .rarity-grid {
         grid-template-columns: 1fr;
     }
+    /* ============================= */
+/* LOOT TIER PAGE                */
+/* ============================= */
+
+.tier-card {
+    background: #111416;
+    border: 1px solid #252a2d;
+    border-left: 4px solid;
+    padding: 25px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.tier-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.tier-header h2 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.tier-card p {
+    color: #8b9296;
+    line-height: 1.6;
+    max-width: 800px;
+}
+
+.tier-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+
+/* COMMON */
+
+.tier-common {
+    border-left-color: #a3a3a3;
+}
+
+.tier-common .tier-dot {
+    background: #a3a3a3;
+}
+
+
+/* UNCOMMON */
+
+.tier-uncommon {
+    border-left-color: #3ab85a;
+}
+
+.tier-uncommon .tier-dot {
+    background: #3ab85a;
+}
+
+
+/* RARE */
+
+.tier-rare {
+    border-left-color: #3d7cff;
+}
+
+.tier-rare .tier-dot {
+    background: #3d7cff;
+}
+
+
+/* EPIC */
+
+.tier-epic {
+    border-left-color: #9f4df0;
+}
+
+.tier-epic .tier-dot {
+    background: #9f4df0;
+}
+
+
+/* LEGENDARY */
+
+.tier-legendary {
+    border-left-color: #e69b29;
+}
+
+.tier-legendary .tier-dot {
+    background: #e69b29;
+}
 
 }
