@@ -237,97 +237,214 @@ nav a.active {
     .rarity-grid {
         grid-template-columns: 1fr;
     }
-    /* ============================= */
+/* ============================= */
 /* LOOT TIER PAGE                */
 /* ============================= */
 
 .tier-card {
-    background: #111416;
-    border: 1px solid #252a2d;
-    border-left: 4px solid;
-    padding: 25px;
-    margin-bottom: 15px;
-    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        rgba(20, 23, 25, 0.98),
+        rgba(12, 14, 16, 0.98)
+    );
+    border: 1px solid #2a2f33;
+    border-left: 5px solid;
+    padding: 28px 30px;
+    margin-bottom: 18px;
+    border-radius: 10px;
+    transition: 0.25s ease;
+}
+
+.tier-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    pointer-events: none;
+}
+
+.tier-card:hover {
+    transform: translateY(-3px);
+    border-color: #4a5055;
 }
 
 .tier-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 14px;
+    margin-bottom: 14px;
 }
 
 .tier-header h2 {
     margin: 0;
-    font-size: 21px;
+    font-size: 24px;
+    letter-spacing: 0.5px;
 }
 
 .tier-card p {
-    color: #8b9296;
-    line-height: 1.6;
-    max-width: 800px;
+    color: #a0a7ab;
+    line-height: 1.7;
+    max-width: 850px;
+    font-size: 15px;
 }
 
 .tier-dot {
-    width: 11px;
-    height: 11px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     display: inline-block;
+    box-shadow: 0 0 12px currentColor;
 }
 
 
 /* COMMON */
 
 .tier-common {
-    border-left-color: #a3a3a3;
+    border-left-color: #b9b9b9;
+    box-shadow: inset 0 0 28px rgba(185, 185, 185, 0.04);
+}
+
+.tier-common::before {
+    background: linear-gradient(
+        90deg,
+        rgba(185, 185, 185, 0.18),
+        transparent 35%
+    );
 }
 
 .tier-common .tier-dot {
-    background: #a3a3a3;
+    background: #b9b9b9;
+    color: #b9b9b9;
+}
+
+.tier-common .tier-header h2 {
+    color: #d2d2d2;
 }
 
 
 /* UNCOMMON */
 
 .tier-uncommon {
-    border-left-color: #3ab85a;
+    border-left-color: #3fcf6a;
+    box-shadow: inset 0 0 32px rgba(63, 207, 106, 0.05);
+}
+
+.tier-uncommon::before {
+    background: linear-gradient(
+        90deg,
+        rgba(63, 207, 106, 0.2),
+        transparent 35%
+    );
 }
 
 .tier-uncommon .tier-dot {
-    background: #3ab85a;
+    background: #3fcf6a;
+    color: #3fcf6a;
+}
+
+.tier-uncommon .tier-header h2 {
+    color: #57dc7c;
 }
 
 
 /* RARE */
 
 .tier-rare {
-    border-left-color: #3d7cff;
+    border-left-color: #4b88ff;
+    box-shadow: inset 0 0 32px rgba(75, 136, 255, 0.06);
+}
+
+.tier-rare::before {
+    background: linear-gradient(
+        90deg,
+        rgba(75, 136, 255, 0.22),
+        transparent 35%
+    );
 }
 
 .tier-rare .tier-dot {
-    background: #3d7cff;
+    background: #4b88ff;
+    color: #4b88ff;
+}
+
+.tier-rare .tier-header h2 {
+    color: #68a0ff;
 }
 
 
 /* EPIC */
 
 .tier-epic {
-    border-left-color: #9f4df0;
+    border-left-color: #a85cff;
+    box-shadow: inset 0 0 34px rgba(168, 92, 255, 0.06);
+}
+
+.tier-epic::before {
+    background: linear-gradient(
+        90deg,
+        rgba(168, 92, 255, 0.22),
+        transparent 35%
+    );
 }
 
 .tier-epic .tier-dot {
-    background: #9f4df0;
+    background: #a85cff;
+    color: #a85cff;
+}
+
+.tier-epic .tier-header h2 {
+    color: #bd83ff;
 }
 
 
 /* LEGENDARY */
 
 .tier-legendary {
-    border-left-color: #e69b29;
+    border-left-color: #ffab32;
+    box-shadow:
+        inset 0 0 38px rgba(255, 171, 50, 0.07),
+        0 0 18px rgba(255, 171, 50, 0.05);
+}
+
+.tier-legendary::before {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 171, 50, 0.25),
+        transparent 40%
+    );
 }
 
 .tier-legendary .tier-dot {
-    background: #e69b29;
+    background: #ffab32;
+    color: #ffab32;
 }
 
+.tier-legendary .tier-header h2 {
+    color: #ffc15d;
+}
+
+
+/* TIER CARD HOVER GLOWS */
+
+.tier-common:hover {
+    box-shadow: 0 0 24px rgba(185, 185, 185, 0.08);
+}
+
+.tier-uncommon:hover {
+    box-shadow: 0 0 24px rgba(63, 207, 106, 0.12);
+}
+
+.tier-rare:hover {
+    box-shadow: 0 0 24px rgba(75, 136, 255, 0.14);
+}
+
+.tier-epic:hover {
+    box-shadow: 0 0 24px rgba(168, 92, 255, 0.14);
+}
+
+.tier-legendary:hover {
+    box-shadow: 0 0 28px rgba(255, 171, 50, 0.18);
+}
 }
