@@ -1619,3 +1619,171 @@ nav a.active::before {
     }
 
 }
+
+/* ============================= */
+/* MOBILE NAVIGATION             */
+/* ============================= */
+
+.mobile-header {
+    display: none;
+}
+
+.mobile-menu-button {
+    display: none;
+}
+
+@media (max-width: 800px) {
+
+    body {
+        display: block;
+    }
+
+    .mobile-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        height: 64px;
+        padding: 0 18px;
+
+        background: rgba(12, 14, 16, 0.97);
+        border-bottom: 1px solid #292e32;
+
+        backdrop-filter: blur(10px);
+    }
+
+    .mobile-logo {
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 2px;
+    }
+
+    .mobile-logo span {
+        display: block;
+        margin-top: 3px;
+
+        color: #6f777c;
+        font-size: 7px;
+        letter-spacing: 3px;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        width: 42px;
+        height: 42px;
+
+        padding: 9px;
+
+        background: #15191c;
+        border: 1px solid #30363a;
+        border-radius: 7px;
+
+        cursor: pointer;
+    }
+
+    .mobile-menu-button span {
+        width: 100%;
+        height: 2px;
+
+        margin: 3px 0;
+
+        background: #ffffff;
+
+        transition: 0.25s ease;
+    }
+
+    .sidebar {
+        display: block;
+
+        position: fixed;
+        top: 64px;
+        left: -280px;
+
+        width: 260px;
+        height: calc(100vh - 64px);
+
+        padding: 22px 18px;
+
+        z-index: 999;
+
+        transition: left 0.3s ease;
+
+        overflow-y: auto;
+    }
+
+    .sidebar.mobile-open {
+        left: 0;
+    }
+
+    .sidebar .logo {
+        display: none;
+    }
+
+    .sidebar nav a {
+        font-size: 15px;
+        padding: 14px;
+    }
+
+    .content {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 32px 20px;
+    }
+
+    .hero {
+        margin-bottom: 45px;
+        padding-top: 15px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+        line-height: 1.1;
+    }
+
+    .hero-text {
+        font-size: 16px;
+    }
+
+    .section {
+        margin-bottom: 50px;
+    }
+
+    .card-grid,
+    .start-grid,
+    .rarity-grid,
+    .items-grid,
+    .location-grid,
+    .mods-grid,
+    .economy-info {
+        grid-template-columns: 1fr;
+    }
+
+    .item-image-wrap {
+        height: 240px;
+    }
+
+    .mods-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .mods-count {
+        text-align: left;
+    }
+
+    .economy-roadmap-header,
+    .location-card-top,
+    .item-top {
+        gap: 14px;
+    }
+}

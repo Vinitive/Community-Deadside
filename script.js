@@ -1,9 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    /* ========================= */
+    /* ACTIVE NAVIGATION         */
+    /* ========================= */
+
     let currentPage = window.location.pathname.split("/").pop();
 
-    // GitHub Pages may load the homepage without index.html in the URL
-    if (currentPage === "") {
+    if (!currentPage) {
         currentPage = "index.html";
     }
 
@@ -11,12 +14,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
     navLinks.forEach(function (link) {
 
-        const linkPage = link.getAttribute("href");
+        link.classList.remove("active");
 
-        if (linkPage === currentPage) {
+        if (link.getAttribute("href") === currentPage) {
             link.classList.add("active");
         }
 
     });
+
+
+    /* ========================= */
+    /* MOBILE MENU               */
+    /* ========================= */
+
+    const menuButton = document.getElementById("mobileMenuButton");
+    const sidebar = document.querySelector(".sidebar");
+
+    if (menuButton && sidebar) {
+
+        menuButton.addEventListener("click", function () {
+
+            sidebar.classList.toggle("mobile-open");
+
+        });
+
+
+        navLinks.forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                sidebar.classList.remove("mobile-open");
+
+            });
+
+        });
+
+    }
 
 });
