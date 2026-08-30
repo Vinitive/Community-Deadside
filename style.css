@@ -568,3 +568,23 @@ nav a.active {
     }
 
 }
+/* TRANSPARENT ITEM IMAGES */
+
+.item-image-transparent {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(168, 92, 255, 0.10),
+            transparent 65%
+        ),
+        #0d1012;
+}
+
+.item-image-transparent img {
+    width: 85% !important;
+    height: 85% !important;
+    object-fit: contain !important;
+    filter:
+        drop-shadow(0 15px 18px rgba(0, 0, 0, 0.55))
+        drop-shadow(0 0 15px rgba(168, 92, 255, 0.10));
+}
