@@ -3,20 +3,17 @@ name: Update Deadside Server Status
 on:
   workflow_dispatch:
 
-  schedule:
-    - cron: "*/5 * * * *"
-
 permissions:
   contents: write
 
 jobs:
-  update-server-status:
+  update:
 
     runs-on: ubuntu-latest
 
     steps:
 
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
@@ -27,32 +24,26 @@ jobs:
       - name: Install GameDig
         run: npm install gamedig
 
-      - name: Query Deadside server
+      - name: Query Server
+        run: node .github/workflows/query-server.js
+
+      - name: Show JSON
         run: |
-          node .github/workflows/query-server.js
-
-          echo "========== FILES =========="
-          ls -la
-
-          echo "========== SERVER STATUS =========="
+          echo "============================"
+          echo "SERVER STATUS JSON"
+          echo "============================"
           cat server-status.json
 
-      - name: Commit server status
+      - name: Commit JSON
         run: |
-          echo "========== GIT STATUS =========="
-          git status
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -f server-status.json
-
-          echo "========== AFTER GIT ADD =========="
-          git status
+          git add server-status.json
 
           if git diff --cached --quiet; then
-            echo "No server status changes to commit."
+            echo "No changes."
           else
             git commit -m "Update Deadside server status"
-            git push
+            git push origin main
           fi
