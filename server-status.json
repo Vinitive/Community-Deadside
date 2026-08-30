@@ -1,0 +1,11 @@
+{
+    "online": false,
+    "name": "Community Deadside",
+    "address": "144.126.153.170:35200",
+    "queryPort": 35215,
+    "players": 0,
+    "maxPlayers": 0,
+    "ping": null,
+    "map": null,
+    "updated": null
+}
