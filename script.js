@@ -27,8 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
     /* MOBILE MENU               */
     /* ========================= */
 
-    const menuButton = document.getElementById("mobileMenuButton");
-    const sidebar = document.querySelector(".sidebar");
+    const menuButton =
+        document.getElementById("mobileMenuButton");
+
+    const sidebar =
+        document.querySelector(".sidebar");
+
 
     if (menuButton && sidebar) {
 
@@ -51,205 +55,300 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
     /* ========================= */
-/* DISCORD WIDGET            */
-/* ========================= */
+    /* DISCORD WIDGET            */
+    /* ========================= */
 
-const DISCORD_SERVER_ID = "1542707972260757605";
-
-const discordOnline = document.getElementById("discordOnline");
-const discordName = document.getElementById("discordName");
-const discordJoin = document.getElementById("discordJoin");
-const discordVoiceList = document.getElementById("discordVoiceList");
-const discordVoiceCount = document.getElementById("discordVoiceCount");
-const voiceStatus = document.getElementById("voiceStatus");
+    const DISCORD_SERVER_ID =
+        "1542707972260757605";
 
 
-async function loadDiscordWidget() {
+    const discordOnline =
+        document.getElementById("discordOnline");
 
-    if (!discordOnline) {
-        return;
-    }
+    const discordName =
+        document.getElementById("discordName");
 
-    try {
+    const discordJoin =
+        document.getElementById("discordJoin");
 
-        const response = await fetch(
-            `https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`
-        );
+    const discordVoiceList =
+        document.getElementById("discordVoiceList");
 
-        if (!response.ok) {
-            throw new Error("Discord widget unavailable");
-        }
+    const discordVoiceCount =
+        document.getElementById("discordVoiceCount");
 
-        const data = await response.json();
+    const voiceStatus =
+        document.getElementById("voiceStatus");
 
 
-        /* SERVER NAME */
+    async function loadDiscordWidget() {
 
-        if (data.name) {
-            discordName.textContent = data.name;
+        if (!discordOnline) {
+            return;
         }
 
 
-        /* ONLINE USERS */
+        try {
 
-        discordOnline.textContent =
-            data.presence_count ?? 0;
-
-
-        /* JOIN LINK */
-
-        if (data.instant_invite) {
-
-            discordJoin.href =
-                data.instant_invite;
-
-        } else {
-
-            discordJoin.style.display =
-                "none";
-
-        }
+            console.log("Loading Discord widget...");
 
 
-        /* VOICE CHANNELS */
-
-        const members =
-            Array.isArray(data.members)
-            ? data.members
-            : [];
-
-        const channels =
-            Array.isArray(data.channels)
-            ? data.channels
-            : [];
-
-
-        const voiceMembers =
-            members.filter(member =>
-                member.channel_id
+            const response = await fetch(
+                `https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`
             );
 
 
-        discordVoiceCount.textContent =
-            voiceMembers.length;
-
-
-        const voiceChannels =
-            channels.filter(channel =>
-                channel.id
+            console.log(
+                "Discord response status:",
+                response.status
             );
 
 
-        discordVoiceList.innerHTML = "";
+            if (!response.ok) {
 
-
-        let activeVoiceChannels = 0;
-
-
-        voiceChannels.forEach(channel => {
-
-            const channelMembers =
-                voiceMembers.filter(
-                    member =>
-                        member.channel_id === channel.id
+                throw new Error(
+                    `Discord returned ${response.status}`
                 );
 
-
-            if (channelMembers.length === 0) {
-                return;
             }
 
 
-            activeVoiceChannels++;
+            const data =
+                await response.json();
 
 
-            const channelElement =
-                document.createElement("div");
-
-            channelElement.className =
-                "voice-channel";
-
-
-            const name =
-                document.createElement("div");
-
-            name.className =
-                "voice-channel-name";
-
-            name.textContent =
-                channel.name;
-
-
-            const users =
-                document.createElement("div");
-
-            users.className =
-                "voice-users";
-
-
-            users.textContent =
-                channelMembers
-                    .map(member =>
-                        member.username
-                    )
-                    .join(", ");
-
-
-            channelElement.appendChild(name);
-
-            channelElement.appendChild(users);
-
-            discordVoiceList.appendChild(
-                channelElement
+            console.log(
+                "Discord widget data:",
+                data
             );
 
-        });
+
+            /* SERVER NAME */
+
+            if (data.name && discordName) {
+
+                discordName.textContent =
+                    data.name;
+
+            }
 
 
-        if (activeVoiceChannels === 0) {
+            /* ONLINE COUNT */
 
-            discordVoiceList.innerHTML =
-                `<div class="voice-empty">
-                    Nobody is currently in a visible voice channel.
-                 </div>`;
+            if (discordOnline) {
+
+                discordOnline.textContent =
+                    data.presence_count ?? 0;
+
+            }
+
+
+            /* INVITE */
+
+            if (discordJoin) {
+
+                if (data.instant_invite) {
+
+                    discordJoin.href =
+                        data.instant_invite;
+
+                    discordJoin.style.display =
+                        "inline-flex";
+
+                } else {
+
+                    discordJoin.style.display =
+                        "none";
+
+                }
+
+            }
+
+
+            /* MEMBERS / VOICE */
+
+            const members =
+                Array.isArray(data.members)
+                    ? data.members
+                    : [];
+
+
+            const channels =
+                Array.isArray(data.channels)
+                    ? data.channels
+                    : [];
+
+
+            const voiceMembers =
+                members.filter(function (member) {
+
+                    return member.channel_id;
+
+                });
+
+
+            if (discordVoiceCount) {
+
+                discordVoiceCount.textContent =
+                    voiceMembers.length;
+
+            }
+
+
+            if (discordVoiceList) {
+
+                discordVoiceList.innerHTML = "";
+
+            }
+
+
+            let activeVoiceChannels = 0;
+
+
+            channels.forEach(function (channel) {
+
+                const channelMembers =
+                    voiceMembers.filter(
+                        function (member) {
+
+                            return (
+                                member.channel_id ===
+                                channel.id
+                            );
+
+                        }
+                    );
+
+
+                if (channelMembers.length === 0) {
+                    return;
+                }
+
+
+                activeVoiceChannels++;
+
+
+                const channelElement =
+                    document.createElement("div");
+
+                channelElement.className =
+                    "voice-channel";
+
+
+                const channelName =
+                    document.createElement("div");
+
+                channelName.className =
+                    "voice-channel-name";
+
+                channelName.textContent =
+                    channel.name;
+
+
+                const users =
+                    document.createElement("div");
+
+                users.className =
+                    "voice-users";
+
+
+                users.textContent =
+                    channelMembers
+                        .map(function (member) {
+
+                            return member.username;
+
+                        })
+                        .join(", ");
+
+
+                channelElement.appendChild(
+                    channelName
+                );
+
+                channelElement.appendChild(
+                    users
+                );
+
+
+                if (discordVoiceList) {
+
+                    discordVoiceList.appendChild(
+                        channelElement
+                    );
+
+                }
+
+            });
+
+
+            if (
+                activeVoiceChannels === 0 &&
+                discordVoiceList
+            ) {
+
+                discordVoiceList.innerHTML =
+                    `<div class="voice-empty">
+                        Nobody is currently in a visible voice channel.
+                    </div>`;
+
+            }
+
+
+            if (voiceStatus) {
+
+                voiceStatus.textContent =
+                    `${activeVoiceChannels} Active`;
+
+            }
 
         }
 
+        catch (error) {
 
-        voiceStatus.textContent =
-            `${activeVoiceChannels} Active`;
+            console.error(
+                "Discord widget error:",
+                error
+            );
+
+
+            if (discordOnline) {
+                discordOnline.textContent = "--";
+            }
+
+
+            if (discordVoiceCount) {
+                discordVoiceCount.textContent = "--";
+            }
+
+
+            if (voiceStatus) {
+                voiceStatus.textContent = "Unavailable";
+            }
+
+
+            if (discordVoiceList) {
+
+                discordVoiceList.innerHTML =
+                    `<div class="voice-empty">
+                        Discord widget could not be loaded.
+                    </div>`;
+
+            }
+
+        }
 
     }
 
-    catch (error) {
 
-        discordOnline.textContent = "--";
-
-        discordVoiceCount.textContent = "--";
-
-        voiceStatus.textContent =
-            "Unavailable";
-
-        discordVoiceList.innerHTML =
-            `<div class="voice-empty">
-                Discord activity could not be loaded.
-                Make sure the Discord Server Widget is enabled.
-             </div>`;
-
-    }
-
-}
+    loadDiscordWidget();
 
 
-loadDiscordWidget();
-
-
-/* Refresh Discord every 60 seconds */
-
-setInterval(
-    loadDiscordWidget,
-    60000
-);
+    setInterval(
+        loadDiscordWidget,
+        60000
+    );
 
 });
