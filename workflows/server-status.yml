@@ -28,15 +28,31 @@ jobs:
         run: npm install gamedig
 
       - name: Query Deadside server
-        run: node .github/workflows/query-server.js
+        run: |
+          node .github/workflows/query-server.js
+
+          echo "========== FILES =========="
+          ls -la
+
+          echo "========== SERVER STATUS =========="
+          cat server-status.json
 
       - name: Commit server status
         run: |
+          echo "========== GIT STATUS =========="
+          git status
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add server-status.json
+          git add -f server-status.json
 
-          git diff --cached --quiet || git commit -m "Update server status"
+          echo "========== AFTER GIT ADD =========="
+          git status
 
-          git push
+          if git diff --cached --quiet; then
+            echo "No server status changes to commit."
+          else
+            git commit -m "Update Deadside server status"
+            git push
+          fi
