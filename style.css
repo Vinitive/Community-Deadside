@@ -448,3 +448,123 @@ nav a.active {
 .tier-legendary:hover {
     box-shadow: 0 0 28px rgba(255, 171, 50, 0.18);
 }
+
+/* ============================= */
+/* ITEMS PAGE FIX                */
+/* ============================= */
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.item-card {
+    background: #111416;
+    border: 1px solid #2a2f33;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 700px;
+}
+
+.item-image-wrap {
+    width: 100%;
+    height: 320px;
+    background: #0d1012;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.item-image-wrap img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    display: block;
+}
+
+.item-content {
+    padding: 26px;
+}
+
+.item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.item-category {
+    color: #727a7f;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.item-card h2 {
+    font-size: 24px;
+    margin: 0;
+    color: white;
+}
+
+.item-description {
+    margin-top: 18px;
+    color: #a5acb0;
+    line-height: 1.6;
+}
+
+.item-purpose {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #292e31;
+}
+
+.item-purpose span {
+    display: block;
+    color: #777f84;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.item-purpose p {
+    color: #c2c7ca;
+    line-height: 1.6;
+}
+
+.item-rarity {
+    padding: 7px 11px;
+    border-radius: 5px;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.epic-badge {
+    color: #bd83ff;
+    background: rgba(168, 92, 255, 0.12);
+    border: 1px solid rgba(168, 92, 255, 0.4);
+}
+
+.epic-item {
+    border-top: 3px solid #a85cff;
+}
+
+.epic-item:hover {
+    box-shadow: 0 0 28px rgba(168, 92, 255, 0.12);
+}
+
+@media (max-width: 1000px) {
+
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
