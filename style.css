@@ -989,3 +989,396 @@ nav a.active {
     }
 
 }
+
+/* ============================= */
+/* GLOBAL VISUAL UPGRADE         */
+/* ============================= */
+
+body {
+    background:
+        radial-gradient(circle at top right, rgba(168, 92, 255, 0.08), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(61, 124, 255, 0.05), transparent 30%),
+        #090b0c;
+    color: #e8e8e8;
+}
+
+/* subtle background texture */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    background:
+        linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+
+    background-size: 40px 40px;
+}
+
+
+/* ============================= */
+/* SIDEBAR UPGRADE               */
+/* ============================= */
+
+.sidebar {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(17, 20, 22, 0.98),
+            rgba(10, 12, 14, 0.98)
+        );
+
+    border-right: 1px solid #2b3034;
+
+    box-shadow:
+        12px 0 35px rgba(0, 0, 0, 0.35);
+}
+
+.logo {
+    position: relative;
+    color: #ffffff;
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.08);
+}
+
+.logo::after {
+    content: "";
+    display: block;
+
+    width: 45px;
+    height: 2px;
+
+    margin-top: 18px;
+
+    background: linear-gradient(
+        90deg,
+        #a85cff,
+        transparent
+    );
+}
+
+nav a {
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid transparent;
+}
+
+nav a::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 3px;
+    height: 0;
+
+    background: #a85cff;
+
+    transform: translateY(-50%);
+
+    transition: 0.2s ease;
+}
+
+nav a:hover {
+    background: rgba(255,255,255,0.035);
+    border-color: #292e32;
+    padding-left: 18px;
+}
+
+nav a:hover::before {
+    height: 55%;
+}
+
+nav a.active {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(168,92,255,0.15),
+            rgba(168,92,255,0.03)
+        );
+
+    border: 1px solid rgba(168,92,255,0.22);
+
+    color: #ffffff;
+
+    box-shadow:
+        inset 0 0 20px rgba(168,92,255,0.05);
+}
+
+nav a.active::before {
+    height: 65%;
+}
+
+
+/* ============================= */
+/* HERO UPGRADE                  */
+/* ============================= */
+
+.hero {
+    position: relative;
+
+    padding: 30px 0 35px;
+
+    border-bottom: 1px solid #252a2e;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -1px;
+
+    width: 140px;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        #a85cff,
+        transparent
+    );
+}
+
+.hero h1 {
+    font-size: 56px;
+
+    line-height: 1.05;
+
+    text-shadow:
+        0 0 25px rgba(255,255,255,0.04);
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #c9c9c9
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.eyebrow {
+    color: #a85cff;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 12px rgba(168,92,255,0.35);
+}
+
+
+/* ============================= */
+/* SECTION TITLES                */
+/* ============================= */
+
+.section h2 {
+    position: relative;
+
+    display: inline-block;
+
+    padding-bottom: 8px;
+}
+
+.section > h2::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+
+    width: 45px;
+    height: 2px;
+
+    background: #a85cff;
+}
+
+
+/* ============================= */
+/* CARD UPGRADE                  */
+/* ============================= */
+
+.card,
+.start-card,
+.location-card,
+.item-card,
+.tier-card,
+.guide-panel,
+.economy-roadmap,
+.tips-box,
+.goal-list,
+.development-notice {
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.25);
+
+    backdrop-filter: blur(3px);
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    inset: auto 0 0 0;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #a85cff,
+            transparent
+        );
+
+    opacity: 0;
+
+    transition: 0.25s ease;
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 16px 38px rgba(0,0,0,0.35),
+        0 0 20px rgba(168,92,255,0.05);
+}
+
+
+/* ============================= */
+/* FEATURE LIST UPGRADE          */
+/* ============================= */
+
+.feature {
+    position: relative;
+
+    transition: 0.2s ease;
+}
+
+.feature:hover {
+    background: #15191c;
+
+    padding-left: 25px;
+
+    color: #ffffff;
+}
+
+.feature span {
+    color: #a85cff;
+}
+
+
+/* ============================= */
+/* RARITY GLOW                   */
+/* ============================= */
+
+.rarity {
+    transition: 0.25s ease;
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,0.18);
+}
+
+.rarity:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+.common:hover {
+    box-shadow: 0 0 22px rgba(185,185,185,0.12);
+}
+
+.uncommon:hover {
+    box-shadow: 0 0 22px rgba(63,207,106,0.18);
+}
+
+.rare:hover {
+    box-shadow: 0 0 22px rgba(75,136,255,0.22);
+}
+
+.epic:hover {
+    box-shadow: 0 0 24px rgba(168,92,255,0.22);
+}
+
+.legendary:hover {
+    box-shadow: 0 0 26px rgba(255,171,50,0.25);
+}
+
+
+/* ============================= */
+/* LINKS                         */
+/* ============================= */
+
+.wiki-link {
+    position: relative;
+
+    transition: 0.2s ease;
+}
+
+.wiki-link:hover {
+    text-shadow:
+        0 0 10px rgba(168,92,255,0.55);
+
+    transform: translateX(3px);
+}
+
+
+/* ============================= */
+/* SCROLLBAR                     */
+/* ============================= */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0b0d0e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #272c30;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3a4045;
+}
+
+
+/* ============================= */
+/* PAGE ENTRY ANIMATION          */
+/* ============================= */
+
+.content {
+    animation: fadeInPage 0.45s ease;
+}
+
+@keyframes fadeInPage {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
