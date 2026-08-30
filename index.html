@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,79 +12,356 @@
 
 <body>
 
+    <div class="mobile-header">
+        <div class="mobile-logo">
+            COMMUNITY DEADSiDE
+            <span>SERVER WIKI</span>
+        </div>
+
+        <button
+            class="mobile-menu-button"
+            id="mobileMenuButton"
+            aria-label="Open navigation"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+
     <aside class="sidebar">
+
         <div class="logo">
             COMMUNITY DEADSiDE
             <span>SERVER WIKI</span>
         </div>
 
         <nav>
-    <a href="index.html" >Home</a>
-    <a href="getting-started.html">Getting Started</a>
-    <a href="loot-tiers.html">Loot Tiers</a>
-    <a href="items.html">Items</a>
-    <a href="economy.html">Economy</a>
-    <a href="reputation.html">Reputation</a>
-    <a href="locations.html">Locations</a>
-    <a href="mods.html">Mods</a>
-    <a href="#">Changelog</a>
+            <a href="index.html">Home</a>
+            <a href="getting-started.html">Getting Started</a>
+            <a href="loot-tiers.html">Loot Tiers</a>
+            <a href="items.html">Items</a>
+            <a href="economy.html">Economy</a>
+            <a href="reputation.html">Reputation</a>
+            <a href="locations.html">Locations</a>
+            <a href="mods.html">Mods</a>
+            <a class="disabled-link">Changelog</a>
         </nav>
+
     </aside>
 
 
-    <main class="content">
+    <main class="content home-content">
 
-        <header class="hero">
-            <p class="eyebrow">OFFICIAL SERVER DATABASE</p>
+        <header class="home-hero">
 
-            <h1>Community Deadside Server Wiki</h1>
-
-            <p class="hero-text">
-                Everything you need to know about the server,
-                custom systems, loot, economy, locations and progression.
+            <p class="eyebrow">
+                COMMUNITY DEADSiDE
             </p>
+
+            <h1>
+                Survival Reworked.
+            </h1>
+
+            <p class="home-subtitle">
+                A custom Deadside experience focused on exploration,
+                progression, economy, high-value POIs, and unique server content.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="getting-started.html" class="primary-button">
+                    Getting Started
+                </a>
+
+                <a href="mods.html" class="secondary-button">
+                    View Mods
+                </a>
+
+            </div>
+
         </header>
 
 
+        <!-- LIVE DASHBOARD -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- GAME SERVER -->
+
+            <article class="dashboard-card server-dashboard">
+
+                <div class="dashboard-card-header">
+
+                    <div>
+
+                        <p class="dashboard-label">
+                            DEADSiDE SERVER
+                        </p>
+
+                        <h2>
+                            Community Deadside
+                        </h2>
+
+                    </div>
+
+
+                    <div class="status-indicator">
+
+                        <span
+                            class="status-dot status-checking"
+                            id="serverStatusDot"
+                        ></span>
+
+                        <span id="serverStatusText">
+                            Checking
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="server-player-display">
+
+                    <div class="player-number">
+
+                        <strong id="serverPlayers">
+                            --
+                        </strong>
+
+                        <span>
+                            PLAYERS ONLINE
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="server-details">
+
+                    <div>
+
+                        <span>
+                            SERVER ADDRESS
+                        </span>
+
+                        <strong>
+                            144.126.153.170:35200
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            STATUS
+                        </span>
+
+                        <strong id="serverStatusBottom">
+                            Awaiting Live API
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <p class="dashboard-note">
+                    Live Deadside player tracking will appear here once
+                    the server status endpoint is connected.
+                </p>
+
+            </article>
+
+
+
+            <!-- DISCORD -->
+
+            <article class="dashboard-card discord-dashboard">
+
+                <div class="dashboard-card-header">
+
+                    <div>
+
+                        <p class="dashboard-label">
+                            DISCORD COMMUNITY
+                        </p>
+
+                        <h2 id="discordName">
+                            Community Deadside
+                        </h2>
+
+                    </div>
+
+
+                    <div class="status-indicator">
+
+                        <span class="status-dot status-online"></span>
+
+                        <span>
+                            Live
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="discord-stats">
+
+                    <div class="discord-stat">
+
+                        <strong id="discordOnline">
+                            --
+                        </strong>
+
+                        <span>
+                            ONLINE
+                        </span>
+
+                    </div>
+
+
+                    <div class="discord-stat">
+
+                        <strong id="discordVoiceCount">
+                            --
+                        </strong>
+
+                        <span>
+                            IN VOICE
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="voice-section">
+
+                    <div class="voice-header">
+
+                        <span>
+                            VOICE ACTIVITY
+                        </span>
+
+                        <span id="voiceStatus">
+                            Loading...
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="voice-list"
+                        id="discordVoiceList"
+                    >
+
+                        <div class="voice-empty">
+                            Loading Discord activity...
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    id="discordJoin"
+                    class="discord-join-button"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Join Discord →
+                </a>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- SERVER OVERVIEW -->
+
         <section class="section">
 
-            <h2>Start Here</h2>
+            <h2>Server Overview</h2>
 
-            <div class="card-grid">
 
-                <div class="card">
-                    <h3>Getting Started</h3>
-                    <p>
-                        New to the server? Learn the rules,
-                        important locations and how to begin.
+            <div class="server-overview-grid">
+
+
+                <div class="overview-card">
+
+                    <p class="overview-label">
+                        CURRENT BUILD
                     </p>
+
+                    <strong>
+                        v0.1
+                    </strong>
+
+                    <span>
+                        Initial server development
+                    </span>
+
                 </div>
 
 
-                <div class="card">
-                    <h3>Loot Tiers</h3>
-                    <p>
-                        Learn how Common, Uncommon, Rare,
-                        Epic and Legendary loot works.
+                <div class="overview-card highlight-overview">
+
+                    <p class="overview-label">
+                        NEXT MAJOR UPDATE
                     </p>
+
+                    <strong>
+                        v0.3
+                    </strong>
+
+                    <span>
+                        Economy & Reputation Overhaul
+                    </span>
+
                 </div>
 
 
-                <div class="card">
-                    <h3>Economy</h3>
-                    <p>
-                        Learn trader prices, money-making methods
-                        and valuable items.
+                <div class="overview-card">
+
+                    <p class="overview-label">
+                        INSTALLED MODS
                     </p>
+
+                    <strong>
+                        14
+                    </strong>
+
+                    <span>
+                        Active server modifications
+                    </span>
+
                 </div>
 
 
-                <div class="card">
-                    <h3>Reputation</h3>
-                    <p>
-                        Learn how reputation works and what
-                        rewards are available.
+                <div class="overview-card">
+
+                    <p class="overview-label">
+                        FEATURED POIs
                     </p>
+
+                    <strong>
+                        4
+                    </strong>
+
+                    <span>
+                        Custom locations currently featured
+                    </span>
+
                 </div>
 
             </div>
@@ -91,93 +369,160 @@
         </section>
 
 
+
+        <!-- FEATURED LOCATIONS -->
+
         <section class="section">
 
-            <h2>Loot Rarities</h2>
+            <div class="section-header-row">
 
-            <div class="rarity-grid">
+                <h2>
+                    Featured Locations
+                </h2>
 
-                <div class="rarity common">
-                    Common
-                </div>
+                <a
+                    href="locations.html"
+                    class="wiki-link"
+                >
+                    View All →
+                </a>
 
-                <div class="rarity uncommon">
-                    Uncommon
-                </div>
+            </div>
 
-                <div class="rarity rare">
-                    Rare
-                </div>
 
-                <div class="rarity epic">
-                    Epic
-                </div>
+            <div class="home-location-grid">
 
-                <div class="rarity legendary">
-                    Legendary
-                </div>
+                <a
+                    href="locations.html"
+                    class="home-location-card"
+                >
+
+                    <span>
+                        CUSTOM POI
+                    </span>
+
+                    <h3>
+                        MRF
+                    </h3>
+
+                    <p>
+                        Material Recovery Facility
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="locations.html"
+                    class="home-location-card"
+                >
+
+                    <span>
+                        CUSTOM POI
+                    </span>
+
+                    <h3>
+                        MRF Bunker
+                    </h3>
+
+                    <p>
+                        Underground high-value location
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="locations.html"
+                    class="home-location-card"
+                >
+
+                    <span>
+                        CUSTOM POI
+                    </span>
+
+                    <h3>
+                        BlackRock Citadel
+                    </h3>
+
+                    <p>
+                        Fortified custom destination
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="locations.html"
+                    class="home-location-card"
+                >
+
+                    <span>
+                        CUSTOM POI
+                    </span>
+
+                    <h3>
+                        Deadteck Oil Rig
+                    </h3>
+
+                    <p>
+                        Industrial offshore location
+                    </p>
+
+                </a>
 
             </div>
 
         </section>
 
 
+
+        <!-- CUSTOM SYSTEMS -->
+
         <section class="section">
 
-            <h2>Server Features</h2>
+            <h2>
+                Custom Systems
+            </h2>
 
-            <div class="feature-list">
 
-                <div class="feature">
+            <div class="systems-strip">
+
+                <div>
                     <span>01</span>
-                    Custom Loot System
+                    Bitcoin Mining
                 </div>
 
-                <div class="feature">
+                <div>
                     <span>02</span>
-                    Custom Economy
+                    Weed Growing
                 </div>
 
-                <div class="feature">
+                <div>
                     <span>03</span>
-                    Reputation Progression
+                    Oil Production
                 </div>
 
-                <div class="feature">
+                <div>
                     <span>04</span>
-                    Custom POIs
+                    Custom Weapons
                 </div>
 
-                <div class="feature">
+                <div>
                     <span>05</span>
-                    Unique Server Content
+                    High-Value POIs
                 </div>
 
             </div>
 
         </section>
+
 
     </main>
+
 
     <script src="script.js"></script>
 
 </body>
-<div class="mobile-header">
 
-    <div class="mobile-logo">
-        COMMUNITY DEADSiDE
-        <span>SERVER WIKI</span>
-    </div>
-
-    <button
-        class="mobile-menu-button"
-        id="mobileMenuButton"
-        aria-label="Open navigation"
-    >
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-</div>
 </html>
