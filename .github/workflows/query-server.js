@@ -1,65 +1,104 @@
 const fs = require("fs");
 
-async function run() {
+const SERVER_URL = "https://www.gs4u.net/en/s/435059";
 
+async function run() {
     const output = {
         online: false,
-        name: "Community Deadside",
+        name: "Community_Deadside",
         address: "144.126.153.170:35200",
-        queryPort: 35215,
         players: 0,
-        maxPlayers: 0,
-        ping: null,
-        map: null,
+        maxPlayers: 20,
+        version: null,
         updated: new Date().toISOString()
     };
 
     try {
+        console.log("Fetching GS4U server page...");
 
-        const { GameDig } = await import("gamedig");
-
-        console.log("GameDig loaded successfully.");
-        console.log("Querying 144.126.153.170:35215...");
-
-        const state = await GameDig.query({
-            type: "protocol-valve",
-            host: "144.126.153.170",
-            port: 35215,
-            givenPortOnly: true,
-            socketTimeout: 5000,
-            attemptTimeout: 10000
+        const response = await fetch(SERVER_URL, {
+            headers: {
+                "User-Agent": "Mozilla/5.0 CommunityDeadsideStatusBot/1.0"
+            }
         });
 
-        console.log("========== SERVER RESPONSE ==========");
-        console.log(state);
+        if (!response.ok) {
+            throw new Error(`GS4U returned HTTP ${response.status}`);
+        }
 
-        output.online = true;
-        output.name = state.name || "Community Deadside";
+        const html = await response.text();
 
-        output.players = Array.isArray(state.players)
-            ? state.players.length
-            : 0;
+        console.log("GS4U page downloaded successfully.");
 
-        output.maxPlayers = state.maxplayers || 0;
-        output.ping = state.ping ?? null;
-        output.map = state.map ?? null;
+        /* =========================
+           SERVER NAME
+        ========================= */
+
+        const nameMatch = html.match(
+            /<h1[^>]*>\s*Community_Deadside\s*<\/h1>/i
+        );
+
+        if (nameMatch) {
+            output.name = "Community_Deadside";
+        }
+
+        /* =========================
+           ONLINE STATUS
+        ========================= */
+
+        const statusMatch = html.match(
+            /Status:\s*(?:<\/[^>]+>\s*)*Online/i
+        );
+
+        output.online = Boolean(statusMatch);
+
+        /* =========================
+           PLAYER COUNT
+        ========================= */
+
+        const playersMatch = html.match(
+            /(\d+)\s*(?:&nbsp;|\s)*of(?:&nbsp;|\s)*(\d+)/i
+        );
+
+        if (playersMatch) {
+            output.players = Number(playersMatch[1]);
+            output.maxPlayers = Number(playersMatch[2]);
+        }
+
+        /* =========================
+           VERSION
+        ========================= */
+
+        const versionMatch = html.match(
+            /Version:\s*(?:<\/[^>]+>\s*)*([0-9.]+)/i
+        );
+
+        if (versionMatch) {
+            output.version = versionMatch[1];
+        }
+
+        output.updated = new Date().toISOString();
+
+        console.log("Parsed server data:");
+        console.log(output);
 
     } catch (error) {
+        console.error("GS4U status fetch failed:");
+        console.error(error);
 
-        console.log("========== QUERY FAILED ==========");
-        console.log(error);
-
+        output.online = false;
+        output.updated = new Date().toISOString();
     }
-
-    output.updated = new Date().toISOString();
 
     fs.writeFileSync(
         "server-status.json",
         JSON.stringify(output, null, 4)
     );
 
-    console.log("========== RESULT ==========");
-    console.log(JSON.stringify(output, null, 4));
+    console.log("========== SERVER STATUS ==========");
+    console.log(
+        fs.readFileSync("server-status.json", "utf8")
+    );
 }
 
 run();
