@@ -738,3 +738,151 @@ nav a.active {
     }
 
 }
+
+
+/* ============================= */
+/* ECONOMY PAGE                  */
+/* ============================= */
+
+.economy-roadmap {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(168, 92, 255, 0.08),
+            transparent 45%
+        ),
+        #111416;
+
+    border: 1px solid #2c3135;
+    border-left: 4px solid #a85cff;
+
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.economy-roadmap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.economy-label {
+    color: #7c8489;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.economy-roadmap h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.version-badge {
+    color: #bd83ff;
+    background: rgba(168, 92, 255, 0.12);
+    border: 1px solid rgba(168, 92, 255, 0.4);
+
+    padding: 8px 14px;
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.economy-description {
+    color: #a4abae;
+    line-height: 1.7;
+    max-width: 900px;
+    margin-top: 22px;
+}
+
+.economy-divider {
+    height: 1px;
+    background: #292e32;
+    margin: 26px 0;
+}
+
+.economy-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.economy-info-block {
+    background: rgba(0, 0, 0, 0.18);
+    border: 1px solid #292e32;
+    border-radius: 7px;
+    padding: 18px;
+}
+
+.economy-info-block span {
+    display: block;
+    color: #687075;
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.economy-info-block strong {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+
+/* DEVELOPMENT NOTICE */
+
+.development-notice {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    background: #101315;
+    border: 1px solid #343a3e;
+    border-radius: 8px;
+
+    padding: 22px;
+}
+
+.development-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: rgba(168, 92, 255, 0.12);
+    border: 1px solid rgba(168, 92, 255, 0.4);
+
+    color: #bd83ff;
+    font-weight: bold;
+}
+
+.development-notice h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.development-notice p {
+    color: #8f979b;
+    line-height: 1.6;
+    font-size: 13px;
+}
+
+
+/* ECONOMY MOBILE */
+
+@media (max-width: 800px) {
+
+    .economy-info {
+        grid-template-columns: 1fr;
+    }
+
+}
