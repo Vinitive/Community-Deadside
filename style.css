@@ -237,6 +237,7 @@ nav a.active {
     .rarity-grid {
         grid-template-columns: 1fr;
     }
+}
 /* ============================= */
 /* LOOT TIER PAGE                */
 /* ============================= */
@@ -446,5 +447,4 @@ nav a.active {
 
 .tier-legendary:hover {
     box-shadow: 0 0 28px rgba(255, 171, 50, 0.18);
-}
 }
