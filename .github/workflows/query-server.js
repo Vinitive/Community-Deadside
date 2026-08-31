@@ -3,6 +3,7 @@ const fs = require("fs");
 const SERVER_URL = "https://www.gs4u.net/en/s/435059";
 
 async function run() {
+
     const output = {
         online: false,
         name: "Community_Deadside",
@@ -14,91 +15,143 @@ async function run() {
     };
 
     try {
-        console.log("Fetching GS4U server page...");
+
+        console.log("Fetching GS4U...");
 
         const response = await fetch(SERVER_URL, {
             headers: {
-                "User-Agent": "Mozilla/5.0 CommunityDeadsideStatusBot/1.0"
+                "User-Agent": "Mozilla/5.0"
             }
         });
 
         if (!response.ok) {
-            throw new Error(`GS4U returned HTTP ${response.status}`);
+            throw new Error(`HTTP ${response.status}`);
         }
 
         const html = await response.text();
 
-        console.log("GS4U page downloaded successfully.");
+        /*
+            Convert the HTML into plain-ish text.
 
-        /* =========================
-           SERVER NAME
-        ========================= */
+            This makes the parser much less sensitive
+            to GS4U changing span/div tags.
+        */
 
-        const nameMatch = html.match(
-            /<h1[^>]*>\s*Community_Deadside\s*<\/h1>/i
-        );
+        const text = html
+            .replace(/<script[\s\S]*?<\/script>/gi, " ")
+            .replace(/<style[\s\S]*?<\/style>/gi, " ")
+            .replace(/<[^>]+>/g, " ")
+            .replace(/&nbsp;/gi, " ")
+            .replace(/&#160;/gi, " ")
+            .replace(/\u00a0/g, " ")
+            .replace(/&amp;/gi, "&")
+            .replace(/\s+/g, " ")
+            .trim();
 
-        if (nameMatch) {
-            output.name = "Community_Deadside";
+        console.log("========== PAGE TEXT ==========");
+        console.log(text.substring(0, 2500));
+
+        /*
+            ONLINE STATUS
+        */
+
+        if (/Status:\s*Online/i.test(text)) {
+
+            output.online = true;
+
+        } else if (/Status:\s*Offline/i.test(text)) {
+
+            output.online = false;
+
         }
 
-        /* =========================
-           ONLINE STATUS
-        ========================= */
 
-        const statusMatch = html.match(
-            /Status:\s*(?:<\/[^>]+>\s*)*Online/i
-        );
+        /*
+            PLAYER COUNT
+        */
 
-        output.online = Boolean(statusMatch);
-
-        /* =========================
-           PLAYER COUNT
-        ========================= */
-
-        const playersMatch = html.match(
-            /(\d+)\s*(?:&nbsp;|\s)*of(?:&nbsp;|\s)*(\d+)/i
-        );
+        const playersMatch =
+            text.match(/Players:\s*(\d+)\s*of\s*(\d+)/i);
 
         if (playersMatch) {
-            output.players = Number(playersMatch[1]);
-            output.maxPlayers = Number(playersMatch[2]);
+
+            output.players =
+                parseInt(playersMatch[1], 10);
+
+            output.maxPlayers =
+                parseInt(playersMatch[2], 10);
+
         }
 
-        /* =========================
-           VERSION
-        ========================= */
 
-        const versionMatch = html.match(
-            /Version:\s*(?:<\/[^>]+>\s*)*([0-9.]+)/i
-        );
+        /*
+            VERSION
+        */
+
+        const versionMatch =
+            text.match(/Version:\s*([0-9.]+)/i);
 
         if (versionMatch) {
-            output.version = versionMatch[1];
+
+            output.version =
+                versionMatch[1];
+
         }
 
-        output.updated = new Date().toISOString();
 
-        console.log("Parsed server data:");
+        /*
+            SERVER NAME
+        */
+
+        if (text.includes("Community_Deadside")) {
+
+            output.name =
+                "Community_Deadside";
+
+        }
+
+
+        output.updated =
+            new Date().toISOString();
+
+
+        console.log(
+            "========== PARSED STATUS =========="
+        );
+
         console.log(output);
 
-    } catch (error) {
-        console.error("GS4U status fetch failed:");
-        console.error(error);
+    }
+
+    catch (error) {
+
+        console.error(
+            "GS4U fetch failed:",
+            error
+        );
 
         output.online = false;
-        output.updated = new Date().toISOString();
+
+        output.updated =
+            new Date().toISOString();
+
     }
+
 
     fs.writeFileSync(
         "server-status.json",
         JSON.stringify(output, null, 4)
     );
 
-    console.log("========== SERVER STATUS ==========");
+
     console.log(
-        fs.readFileSync("server-status.json", "utf8")
+        "========== FINAL JSON =========="
     );
+
+    console.log(
+        JSON.stringify(output, null, 4)
+    );
+
 }
 
 run();
