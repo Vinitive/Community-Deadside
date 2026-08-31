@@ -351,4 +351,133 @@ document.addEventListener("DOMContentLoaded", function () {
         60000
     );
 
+    /* ========================= */
+/* DEADSiDE SERVER STATUS    */
+/* ========================= */
+
+const serverPlayers =
+    document.getElementById("serverPlayers");
+
+const serverStatusText =
+    document.getElementById("serverStatusText");
+
+const serverStatusBottom =
+    document.getElementById("serverStatusBottom");
+
+const serverStatusDot =
+    document.getElementById("serverStatusDot");
+
+
+async function loadDeadsideStatus() {
+
+    if (!serverPlayers) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            `server-status.json?t=${Date.now()}`
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Status file returned ${response.status}`
+            );
+        }
+
+        const data = await response.json();
+
+        console.log(
+            "Deadside server status:",
+            data
+        );
+
+
+        /* PLAYER COUNT */
+
+        serverPlayers.textContent =
+            `${data.players ?? 0} / ${data.maxPlayers ?? 0}`;
+
+
+        /* ONLINE / OFFLINE */
+
+        if (data.online) {
+
+            serverStatusText.textContent =
+                "Online";
+
+            serverStatusBottom.textContent =
+                "Online";
+
+            serverStatusDot.classList.remove(
+                "status-checking",
+                "status-offline"
+            );
+
+            serverStatusDot.classList.add(
+                "status-online"
+            );
+
+        } else {
+
+            serverStatusText.textContent =
+                "Offline";
+
+            serverStatusBottom.textContent =
+                "Offline";
+
+            serverStatusDot.classList.remove(
+                "status-checking",
+                "status-online"
+            );
+
+            serverStatusDot.classList.add(
+                "status-offline"
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Deadside status error:",
+            error
+        );
+
+        serverPlayers.textContent = "--";
+
+        serverStatusText.textContent =
+            "Unavailable";
+
+        serverStatusBottom.textContent =
+            "Status Unavailable";
+
+        serverStatusDot.classList.remove(
+            "status-online",
+            "status-checking"
+        );
+
+        serverStatusDot.classList.add(
+            "status-offline"
+        );
+
+    }
+
+}
+
+
+loadDeadsideStatus();
+
+
+/* Check local JSON every 60 seconds */
+
+setInterval(
+    loadDeadsideStatus,
+    60000
+);
+
 });
+
