@@ -2529,7 +2529,7 @@ nav a.active::before {
 
 .sidebar-logo img {
     width: 100%;
-    max-width: 190px;
+    max-width: 50px;
     height: auto;
 
     object-fit: contain;
