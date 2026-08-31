@@ -2550,4 +2550,15 @@ nav a.active::before {
     text-transform: uppercase;
 }
 
+/* FORCE SIDEBAR LOGO SIZE */
+.sidebar .sidebar-logo img {
+    width: 50px !important;
+    max-width: 50px !important;
+    height: 50px !important;
+    max-height: 50px !important;
+    object-fit: contain !important;
+    display: block;
+    flex: none;
+}
+
 }
