@@ -2513,5 +2513,37 @@ nav a.active::before {
     .dashboard-card-header {
         flex-direction: column;
     }
+/* =========================
+   SCROLLABLE SIDEBAR
+========================= */
 
+.sidebar {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(168, 92, 255, 0.35);
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 92, 255, 0.65);
+}
+
+/* Firefox */
+.sidebar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(168, 92, 255, 0.35) transparent;
+}
 }
