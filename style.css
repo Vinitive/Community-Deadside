@@ -2514,16 +2514,26 @@ nav a.active::before {
         flex-direction: column;
     }
 /* =========================
-   SCROLLABLE SIDEBAR
+   FIXED + SCROLLABLE SIDEBAR
 ========================= */
 
 .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
     height: 100vh;
-    overflow-y: auto;
+    max-height: 100vh;
+
+    overflow-y: auto !important;
     overflow-x: hidden;
+
+    overscroll-behavior: contain;
+
+    box-sizing: border-box;
 }
 
-/* Custom scrollbar */
+/* Scrollbar */
 .sidebar::-webkit-scrollbar {
     width: 6px;
 }
@@ -2533,17 +2543,17 @@ nav a.active::before {
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background: rgba(168, 92, 255, 0.35);
+    background: rgba(168, 92, 255, 0.4);
     border-radius: 10px;
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-    background: rgba(168, 92, 255, 0.65);
+    background: rgba(168, 92, 255, 0.75);
 }
 
 /* Firefox */
 .sidebar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(168, 92, 255, 0.35) transparent;
+    scrollbar-color: rgba(168, 92, 255, 0.4) transparent;
 }
 }
